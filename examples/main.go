@@ -34,14 +34,14 @@ func main() {
 
 	localfile := fmt.Sprintf("%s/root-protocol-state-snapshot.json", dir)
 
-	err = info.Download(spork.StateArtefacts.RootProtocolStateSnapshot, localfile)
+	err = info.DownloadToFile(spork.StateArtefacts.RootProtocolStateSnapshot, localfile)
 	if err != nil {
 		log.Fatalf("Error downloading root-protocol-state-snapshot: %v", err)
 	}
 
 	localfile = fmt.Sprintf("%s/node-info.json", dir)
 
-	err = info.Download(spork.StateArtefacts.NodeInfo, localfile)
+	err = info.DownloadToFile(spork.StateArtefacts.NodeInfo, localfile)
 	if err != nil {
 		log.Fatalf("Error downloading root-protocol-state-snapshot: %v", err)
 	}

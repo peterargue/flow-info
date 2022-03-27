@@ -3,8 +3,6 @@ package info
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"strconv"
 	"time"
 )
@@ -42,33 +40,13 @@ type Node struct {
 }
 
 func LoadSporkJSON(sporkName string) (*Spork, error) {
-	client := http.Client{
-		Timeout: time.Second * 120,
-	}
-
-	req, err := http.NewRequest(http.MethodGet, SporksJson, nil)
+	data, err := Download(SporksJson)
 	if err != nil {
-		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-
-	res, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("error getting sporks json: %w", err)
-	}
-
-	if res.Body == nil {
-		return nil, fmt.Errorf("error getting sporks json: empty body")
-	}
-
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		return nil, fmt.Errorf("error reading sporks json: %w", err)
+		return nil, fmt.Errorf("error downloading sporks.json: %w", err)
 	}
 
 	var sporkMap map[string]interface{}
-	err = json.Unmarshal(body, &sporkMap)
+	err = json.Unmarshal(data, &sporkMap)
 	if err != nil {
 		return nil, fmt.Errorf("error unmarshalling sporks json: %w", err)
 	}

@@ -44,7 +44,7 @@ func main() {
 	}
 
 	if rootCheckpointFile != "" {
-		err = info.Download(spork.StateArtefacts.RootCheckpointFile, rootCheckpointFile)
+		err = info.DownloadToFile(spork.StateArtefacts.RootCheckpointFile, rootCheckpointFile)
 		if err != nil {
 			log.Fatalf("Error downloading root-checkpoint: %v", err)
 		}
@@ -52,7 +52,7 @@ func main() {
 	}
 
 	if rootProtocolStateSnapshot != "" {
-		err = info.Download(spork.StateArtefacts.RootProtocolStateSnapshot, rootProtocolStateSnapshot)
+		err = info.DownloadToFile(spork.StateArtefacts.RootProtocolStateSnapshot, rootProtocolStateSnapshot)
 		if err != nil {
 			log.Fatalf("Error downloading root-protocol-state-snapshot: %v", err)
 		}
@@ -60,7 +60,7 @@ func main() {
 	}
 
 	if rootProtocolStateSnapshotSignature != "" {
-		err = info.Download(spork.StateArtefacts.RootProtocolStateSnapshotSignature, rootProtocolStateSnapshotSignature)
+		err = info.DownloadToFile(spork.StateArtefacts.RootProtocolStateSnapshotSignature, rootProtocolStateSnapshotSignature)
 		if err != nil {
 			log.Fatalf("Error downloading root-protocol-state-snapshot-sig: %v", err)
 		}
@@ -68,7 +68,7 @@ func main() {
 	}
 
 	if nodeInfo != "" {
-		err = info.Download(spork.StateArtefacts.NodeInfo, nodeInfo)
+		err = info.DownloadToFile(spork.StateArtefacts.NodeInfo, nodeInfo)
 		if err != nil {
 			log.Fatalf("Error downloading node-info: %v", err)
 		}
