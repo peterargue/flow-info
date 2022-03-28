@@ -38,7 +38,7 @@ func main() {
 		return
 	}
 
-	spork, err := info.LoadSporkJSON(sporkName)
+	spork, err := info.LoadSpork(sporkName)
 	if err != nil {
 		log.Fatalf("Error loading spork: %v", err)
 	}

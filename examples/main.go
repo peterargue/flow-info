@@ -24,7 +24,7 @@ func main() {
 		return
 	}
 
-	spork, err := info.LoadSporkJSON(sporkName)
+	spork, err := info.LoadSpork(sporkName)
 	if err != nil {
 		log.Fatalf("Error loading spork: %v", err)
 	}
@@ -32,18 +32,21 @@ func main() {
 	dir := fmt.Sprintf("%s/public-root-information", bootstrapDir)
 	err = os.MkdirAll(dir, 0755)
 
-	localfile := fmt.Sprintf("%s/root-protocol-state-snapshot.json", dir)
+	err = info.DownloadToFile(
+		spork.StateArtefacts.RootProtocolStateSnapshot,
+		fmt.Sprintf("%s/root-protocol-state-snapshot.json", dir),
+	)
 
-	err = info.DownloadToFile(spork.StateArtefacts.RootProtocolStateSnapshot, localfile)
 	if err != nil {
 		log.Fatalf("Error downloading root-protocol-state-snapshot: %v", err)
 	}
 
-	localfile = fmt.Sprintf("%s/node-info.json", dir)
+	err = info.DownloadToFile(
+		spork.StateArtefacts.NodeInfo,
+		fmt.Sprintf("%s/node-infos.pub.json", dir),
+	)
 
-	err = info.DownloadToFile(spork.StateArtefacts.NodeInfo, localfile)
 	if err != nil {
-		log.Fatalf("Error downloading root-protocol-state-snapshot: %v", err)
+		log.Fatalf("Error downloading node-infos: %v", err)
 	}
-
 }

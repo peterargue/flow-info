@@ -22,7 +22,7 @@ func Download(url string) ([]byte, error) {
 
 	res, err := client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("error getting data: %w", err)
+		return nil, fmt.Errorf("error getting data (url=%s): %w", url, err)
 	}
 
 	if res.Body == nil {
