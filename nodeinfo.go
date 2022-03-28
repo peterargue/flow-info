@@ -15,6 +15,7 @@ type NodeInfo struct {
 	StakingPubKey string
 }
 
+// LoadNodeInfos loads node infos from a file or url.
 func LoadNodeInfos(url string) ([]NodeInfo, error) {
 	var data []byte
 	var err error
