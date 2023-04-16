@@ -1,9 +1,11 @@
-package info
+package identities
 
 import (
 	"encoding/json"
 	"fmt"
 	"strings"
+
+	"github.com/peterargue/flow-info/internal"
 )
 
 type NodeInfo struct {
@@ -15,18 +17,18 @@ type NodeInfo struct {
 	StakingPubKey string
 }
 
-// LoadNodeInfos loads node infos from a file or url.
-func LoadNodeInfos(url string) ([]NodeInfo, error) {
+// LoadNodeInfo loads node infos from a file or url.
+func LoadNodeInfo(url string) (IdentityList, error) {
 	var data []byte
 	var err error
 
 	if strings.HasPrefix(url, "https://") || strings.HasPrefix(url, "http://") {
-		data, err = Download(url)
+		data, err = internal.Download(url)
 		if err != nil {
 			return nil, fmt.Errorf("error downloading node info: %w", err)
 		}
 	} else {
-		data, err = readFile(url)
+		data, err = internal.ReadFile(url)
 		if err != nil {
 			return nil, fmt.Errorf("error reading node info: %w", err)
 		}
