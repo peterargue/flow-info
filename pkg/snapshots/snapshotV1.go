@@ -4,9 +4,8 @@ import (
 	"github.com/peterargue/flow-info/pkg/identities"
 )
 
-// Snapshot represents a flow protocol state snapshot
-// TODO: use the flow-go's implementation
-type Snapshot struct {
+// SnapshotV1 represents a flow protocol state snapshot from before v0.33 and earlier
+type SnapshotV1 struct {
 	Head              Header
 	Identities        identities.IdentityList
 	LatestSeal        map[string]interface{}
@@ -15,37 +14,14 @@ type Snapshot struct {
 	QuorumCertificate QuorumCertificate
 	Phase             uint64
 	Epochs            struct {
-		Previous Epoch
-		Current  Epoch
-		Next     Epoch
+		Previous EpochV1
+		Current  EpochV1
+		Next     EpochV1
 	}
 	Params Params
 }
 
-type Header struct {
-	ChainID            string
-	ParentID           string
-	Height             uint64
-	PayloadHash        string
-	Timestamp          string
-	View               uint64
-	ParentView         uint64
-	ParentVoterIndices interface{}
-	ParentVoterSigData interface{}
-	ProposerID         string
-	ProposerSigData    interface{}
-	LastViewTC         interface{}
-	ID                 string
-}
-
-type QuorumCertificate struct {
-	View          int
-	BlockID       string
-	SignerIndices string
-	SigData       string
-}
-
-type Epoch struct {
+type EpochV1 struct {
 	Counter            uint64
 	FirstView          uint64
 	DKGPhase1FinalView uint64
@@ -72,12 +48,4 @@ type Epoch struct {
 			KeyShare string
 		}
 	}
-}
-
-type Params struct {
-	ChainID                    string
-	SporkID                    string
-	SporkRootBlockHeight       uint64
-	ProtocolVersion            uint64
-	EpochCommitSafetyThreshold uint64
 }

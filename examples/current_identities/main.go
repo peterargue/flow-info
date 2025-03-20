@@ -27,13 +27,14 @@ func main() {
 		log.Fatalf("Error creating access node client: %v", err)
 	}
 
-	snapshot, err := snapshots.LoadLatestForAN(ctx, accessClient)
+	snapshot, err := snapshots.LoadLatestFromAN(ctx, accessClient)
 	if err != nil {
 		log.Fatalf("Error loading snapshot: %v", err)
 	}
 
 	fmt.Printf("Current Identities:\n")
-	for _, identity := range snapshot.Identities {
+	state := snapshot.SealingSegment.ProtocolStateEntry()
+	for _, identity := range state.EpochEntry.CurrentEpochIdentityTable {
 		fmt.Printf("NodeID: %s\n", identity.NodeID)
 		fmt.Printf("  Address: %s\n", identity.Address)
 		fmt.Printf("  Role: %s\n", identity.Role)
